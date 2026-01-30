@@ -3,10 +3,10 @@ package("utilwin")
     set_description("A collection of POSIX/Unix utility functions for Windows")
     set_license("Apache-2.0")
 
-    add_urls("https://github.com/swigger/utilwin/archive/refs/tags/v1.0.11.tar.gz")
+    add_urls("https://github.com/swigger/utilwin/archive/refs/tags/v1.0.12.tar.gz")
     add_urls("https://github.com/swigger/utilwin.git")
     
-    add_versions("1.0.11", "d247638da48d254f173c78371beb2de0348055a4066978946316fa4d807a61d5")
+    add_versions("1.0.12", "85f0d0f78bbcd9d5a1daada04358bd0cd8b91299f3b5803df094dee6af644b6b")
 
     add_syslinks("ntdll")
 
