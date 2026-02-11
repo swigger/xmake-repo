@@ -32,9 +32,14 @@ package("protobuf-old")
             table.insert(configs, "--enable-static")
         end
 
-        -- protobuf 2.5.0 默认使用 autoconf
+        local cc = package:build_getenv("cc") or "cc"
+        local cxx = package:build_getenv("cxx") or "c++"
+		local cxflags = table.concat(package:build_getenv("cxflags") or "", " ")
+		local ldflags = table.concat(package:build_getenv("ldflags") or "", " ")
+        local envprefix = string.format("env CC=%s CXX=%s CFLAGS=\"%s\" CXXFLAGS=\"%s\" LDFLAGS=\"%s\"", cc, cxx, cxflags, cxflags, ldflags)
+
         os.vrun("./autogen.sh")
-        os.vrun("./configure " .. table.concat(configs, " "))
+        os.vrun(envprefix .. " ./configure " .. table.concat(configs, " "))
         os.vrun("make -j" .. (cpu.number() or 1))
         os.vrun("make install")
     end)
@@ -46,6 +51,6 @@ package("protobuf-old")
                 GOOGLE_PROTOBUF_VERIFY_VERSION;
                 return 0;
             }
-        ]]}, { configs = { languages="c++11" }}))
+        ]]}, { configs = { languages="c++17", links="protobuf-lite" }}))
     end)
 
