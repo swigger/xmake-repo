@@ -1,0 +1,22 @@
+
+        if package:is_plat("windows") then
+            -- 使用官方 VS 工程构建
+            import("package.tools.msbuild")
+
+            local configs = {}
+            configs.mode = package:is_debug() and "Debug" or "Release"
+            configs.arch = package:is_arch("x64") and "x64" or "Win32"
+
+            -- protobuf 2.5.0 工程路径
+            local sln = "vsprojects/protobuf.sln"
+
+            msbuild.build(package, sln, configs)
+
+            -- 手动拷贝
+            os.cp("vsprojects/" .. configs.mode .. "/*.lib", package:installdir("lib"))
+            os.cp("src/google", package:installdir("include"))
+
+        else
+
+
+
